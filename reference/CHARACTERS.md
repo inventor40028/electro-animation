@@ -1,5 +1,25 @@
 # CHARACTERS — Design, Expressions & Reaction Control (Agents 1 & 3)
 
+## Making a cast that is genuinely distinct (lesson learned)
+- Characters must NOT be just color swaps of the same template. That reads as "swapped
+  heads" and fails. Distinguish by: **body build** (adult/stout/kid), **silhouette** (long
+  coat, cape, toga drape, armor, flared dress, apron/overalls), **hat/hair style**,
+  **facial hair**, and **head seed** (each character gets a unique blob seed so faces differ).
+- Engine support: `stout` (boolean) + a `kid` build (smaller head, shorter torso/legs); a
+  `coat` (extends below the hips), `cape` (back panel), `toga`, `armor`, and `dress`/`apron`
+  each change the body outline. Use them — not just `tunic` colors.
+- **Belt rule:** give each outfit `belt: false` unless a belt is an intentional design part.
+  The default waist/ belt reads as clutter on historical/plain costumes. In the renderer the
+  waist band is gated by `O.belt !== false`.
+- Two curated casts ship in the project (see `shorts-xqivo-silence/characters_40/`):
+  - `old/` — 20 characters in the `claude-animated-shorts` cast grammar (soldier/officer,
+    toga, townsfolk with tophat/bonnet dresses, kid-cap build, parent, workers, + extras).
+  - `new/` — 20 modern characters (CEO, artist, cyber, teacher, gym, vintage, robot, punk,
+    witch, waiter, runner, cop, chef, geek, hippie, etc.).
+- Honest limit: the renderer's torso is a shared bean template; distinctness comes from the
+  silhouette overlays + build + head/hat, not from fully unique body construction. Truly
+  bespoke bodies require hand-drawn per-character shapes.
+
 Source: merged from `claude-animated-shorts/references/reports/characters.md` and the
 new kit's `engine/roman.js` (cast, FACE, poses, faceFront/faceSide).
 
