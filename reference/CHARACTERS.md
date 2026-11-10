@@ -99,6 +99,22 @@ Define with `{eye:[left,right], brow:[left,right], mouth}`:
   side body when the camera is beside the character.
 - When a character turns, shift features to the facing side (don't just mirror).
 
+### Side-face eye orientation (lesson learned)
+- In profile (`faceSide`), the closed/laughing eye kinds (`squeeze`, `happy`) draw as a
+  chevron whose direction is set by `side`. Hard-coding `side=1` made them read **backwards**
+  (like the eye is on the back of the head). Fix: mirror those kinds in side view
+  (`eyeSide = (kind==="squeeze"||kind==="happy") ? -1 : 1`), so a right-facing profile bows
+  forward/down like a real happy eye. Other kinds (neutral/shock/lid) keep `side=1`.
+- `faceSide` MUST receive the actual `expr` from opts — never hard-code `'stern'`; a
+  hard-coded expression makes every profile reaction show the same face.
+
+### Rendering character close-ups (lesson learned)
+- Do NOT tune the 3D camera to zoom into a character's face — it is unreliable (too tight
+  crops the face, too loose makes it tiny, and the result hides the character).
+- Reliable method: render the FULL body, then **crop to the head with PIL** (or use a
+  measured head-band transform on the card canvas). A head-and-shoulders band (design y
+  ~100–700) reads best: features clear without over-zooming.
+
 ## Smooth arm/hand motion (never teleport)
 A pose change must NEVER cut from one arm pose to another instantly — it reads as a
 teleport. Blend the arm control points from the previous pose to the new pose over
