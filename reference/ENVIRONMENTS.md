@@ -34,6 +34,9 @@ Rain must be a VISIBLE presence, not a subtle far-wall detail. Failures observed
   droplet FX within the lit frame itself.
 - Verify with a rendered frame: the rain pixels must be measurable (bright blue fraction
   clearly > 0.01) in the ACTUAL camera view, not just present in code.
+- If a weather/ambient effect still fails to show after this, **stop and ask the user** how
+  they want it handled (or whether the effect is even wanted) instead of silently shipping a
+  version without it. Never deliver a feature you could not confirm appears in the output.
 
 ## Real screen-recording compositing (on-device screens)
 When a character "uses" a real app (typing an address, seeing a site), you can composite a

@@ -1,22 +1,26 @@
 # AUDIO / MIX — SFX mapping & mastering rules (Agent 5)
 
-## Voice verification (lesson learned)
-- Generating a voice WAV is NOT enough. Verify the FINAL mix actually contains the intended
-  voice BEFORE delivering. Compare the mix's voice band RMS to the source take, and confirm the
-  voice model/alias used (e.g. `echo`) is truly the timbre/sex wanted.
-- If a voice "didn't take", check: the mix was rebuilt AFTER the voice file was written, and
-  no older voice file was silently reused. Always rebuild the mix from the confirmed voice.
-- Provide the exact voice id + model used in the deliverable notes.
-
 Source: merged from the old kit's `templates/audio/cues.md` + `sfx_gen.py` and the new
-kit's `audio.py`/`audio_xqivo.py`.
+kit's `audio.py`/`audio_xqivo.py`. (Tool-agnostic — adapt to whatever TTS/mix stack is
+available without renaming this doc.)
 
 ## Voice (the master)
 - Narration pace ≈ 3.7–4.0 words/s; keep the voice UNCHANGED in the mix.
 - Every visual reaction lands **0–3 frames before** its word.
-- Generate via Voice Studio (`http://127.0.0.1:3900/v1`): `POST /v1/audio/speech`
-  with `{model:"tts-1", voice:"<voice_id>", input, response_format:"wav"}`.
-  List voices via `GET /v1/audio/voices`.
+- Use the TTS stack that is configured/available. If no voice server is reachable (or the
+  requested voice/timbre cannot be confirmed), **STOP and ask the user** how to proceed —
+  do not silently fall back to a different (e.g. wrong-gender) voice.
+
+## Voice verification (required — a hard gate before delivery)
+- Generating a voice file is NOT enough. The FINAL mix must be verified to contain the
+  intended voice before you call it done.
+- Confirm BOTH:
+  1. the voice source (the exact voice/timbre you selected) — if you cannot audibly verify
+     it, or the tool does not expose the timbre, ASK the user to confirm the voice matches
+     before building the mix; and
+  2. the mix was rebuilt AFTER that voice file was written (no stale/older voice file
+     silently reused).
+- Provide the voice id + model + build order in the deliverable notes so it is auditable.
 
 ## Mix levels (the contract)
 - Music = **50% of voice gated-RMS** (−6 dB). Never louder.

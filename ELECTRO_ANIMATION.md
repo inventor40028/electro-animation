@@ -17,6 +17,15 @@ specific rule docs under `reference/` when a given agent is active.**
   lighting). The new kit's *engine* tells us HOW it is rendered (story.js shots,
   render.mjs, audio_xqivo.py). Use both.
 
+### Ask-when-uncertain rule (hard rule)
+- If you are NOT certain about something that matters to the outcome — a voice/timbre, an
+  asset the user referenced, a location/format, an intent behind ambiguous feedback — **ASK
+  the user before proceeding.** Do not silently guess, pick a wrong default, or half-fix.
+- In particular: ASK when (a) a requested voice cannot be confirmed, (b) a user references a
+  file/folder you cannot find, (c) the user reports a result that contradicts what you
+  believe you built — verify by checking the actual artifact, not by re-asserting.
+- When you do make a choice on a user's behalf, say so explicitly and explain the fallback.
+
 ---
 
 ## 1. The 7 Agents
